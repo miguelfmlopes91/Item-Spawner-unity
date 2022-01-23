@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Types;
 using UnityEngine;
 using UnityEditor;
 
@@ -17,12 +18,20 @@ public class EnemyDesignWindow : EditorWindow
     private Rect mageSection;
     private Rect warriorSection;
     private Rect rogueSection;
+
+    private static MageData _mageData;
+    private static WarriorData _warriorData;
+    private static RogueData _rogueData;
+
+    public static MageData MageInfo => _mageData;
+    public static WarriorData WarriorInfo => _warriorData;
+    public static RogueData RogueInfo => _rogueData;
     
 
     [MenuItem("Window/Enemy Designer")]
     private static void OpenWindow()
     {
-        EnemyDesignWindow window = (EnemyDesignWindow)GetWindow(typeof(EnemyDesignWindow));
+        var window = GetWindow<EnemyDesignWindow>();
         window.minSize = new Vector2(600, 300);
         window.Show();
     }
@@ -30,8 +39,15 @@ public class EnemyDesignWindow : EditorWindow
     private void OnEnable()
     {
         InitTexture();
+        InitData();
     }
 
+    public static void InitData()
+    {
+        _mageData = CreateInstance<MageData>();
+        _warriorData = CreateInstance<WarriorData>();
+        _rogueData = CreateInstance<RogueData>();
+    }
     private void InitTexture()
     {
         headerSectionTexture = new Texture2D(1, 1);
@@ -84,6 +100,8 @@ public class EnemyDesignWindow : EditorWindow
     {
         GUILayout.BeginArea(headerSection);
         
+        GUILayout.Label("Enemy Designer");
+        
         GUILayout.EndArea();
     }
     
@@ -91,6 +109,13 @@ public class EnemyDesignWindow : EditorWindow
     {
         GUILayout.BeginArea(mageSection);
         
+        GUILayout.Label("Mage");
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Damage Type");
+
+        _mageData.dmgType = (MageDamageType)EditorGUILayout.EnumPopup(_mageData.dmgType);
+        EditorGUILayout.EndHorizontal();
         GUILayout.EndArea();
     }
     
@@ -98,12 +123,28 @@ public class EnemyDesignWindow : EditorWindow
     {
         GUILayout.BeginArea(warriorSection);
         
+        GUILayout.Label("Warrior");
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Strategy Type");
+
+        _warriorData.StrategyType = (WarriorStrategyType)EditorGUILayout.EnumPopup(_warriorData.StrategyType);
+        EditorGUILayout.EndHorizontal();
+        
         GUILayout.EndArea();
     }
     
     private void DrawRogueSettings()
     {
         GUILayout.BeginArea(rogueSection);
+        
+        GUILayout.Label("Rogue");
+
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Damage Type");
+
+        _rogueData.ClassType = (RogueClassType)EditorGUILayout.EnumPopup(_rogueData.ClassType);
+        EditorGUILayout.EndHorizontal();
         
         GUILayout.EndArea();
     }
