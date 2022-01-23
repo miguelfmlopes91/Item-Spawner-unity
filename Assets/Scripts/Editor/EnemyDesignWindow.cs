@@ -82,22 +82,30 @@ public class EnemyDesignWindow : EditorWindow
     
     private void DrawHeader()
     {
+        GUILayout.BeginArea(headerSection);
         
+        GUILayout.EndArea();
     }
     
     private void DrawMageSettings()
     {
+        GUILayout.BeginArea(mageSection);
         
+        GUILayout.EndArea();
     }
     
     private void DrawWarriorSettings()
     {
+        GUILayout.BeginArea(warriorSection);
         
+        GUILayout.EndArea();
     }
     
     private void DrawRogueSettings()
     {
+        GUILayout.BeginArea(rogueSection);
         
+        GUILayout.EndArea();
     }
     
     
