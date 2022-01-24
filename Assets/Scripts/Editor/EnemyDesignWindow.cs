@@ -116,6 +116,12 @@ public class EnemyDesignWindow : EditorWindow
 
         _mageData.dmgType = (MageDamageType)EditorGUILayout.EnumPopup(_mageData.dmgType);
         EditorGUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Create!", GUILayout.Height(40)))
+        {
+            GeneralSettings.OpenWindow(GeneralSettings.SettingsType.MAGE);
+        }
+        
         GUILayout.EndArea();
     }
     
@@ -130,6 +136,11 @@ public class EnemyDesignWindow : EditorWindow
 
         _warriorData.StrategyType = (WarriorStrategyType)EditorGUILayout.EnumPopup(_warriorData.StrategyType);
         EditorGUILayout.EndHorizontal();
+        
+        if (GUILayout.Button("Create!", GUILayout.Height(40)))
+        {
+            GeneralSettings.OpenWindow(GeneralSettings.SettingsType.WARRIOR);
+        }
         
         GUILayout.EndArea();
     }
@@ -146,9 +157,34 @@ public class EnemyDesignWindow : EditorWindow
         _rogueData.ClassType = (RogueClassType)EditorGUILayout.EnumPopup(_rogueData.ClassType);
         EditorGUILayout.EndHorizontal();
         
+        if (GUILayout.Button("Create!", GUILayout.Height(40)))
+        {
+            GeneralSettings.OpenWindow(GeneralSettings.SettingsType.ROGUE);
+        }
+        
         GUILayout.EndArea();
     }
-    
-    
+
+}
+
+public class GeneralSettings : EditorWindow
+{
+    public enum SettingsType
+    {
+        MAGE,
+        WARRIOR,
+        ROGUE
+    }
+
+    private static SettingsType _dataSettings;
+    private static GeneralSettings _window;
+
+    public static void OpenWindow(SettingsType settings)
+    {
+        _dataSettings = settings;
+        _window = GetWindow<GeneralSettings>();
+        _window.minSize = new Vector2(250, 200);
+        _window.Show();
+    }
 }
  
