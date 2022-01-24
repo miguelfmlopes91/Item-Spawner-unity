@@ -208,15 +208,23 @@ public class GeneralSettings : EditorWindow
     public void DrawSettings(CharacterData charData)
     {
         EditorGUILayout.BeginHorizontal();
-        
         EditorGUILayout.LabelField("Max health");
         charData.maxHealth = EditorGUILayout.FloatField(charData.maxHealth);
-        
         EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Max Energy");
         charData.maxEnergy = EditorGUILayout.FloatField(charData.maxEnergy);
+        EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Power");
+        charData.power = EditorGUILayout.Slider(charData.power, 0,100);
+        EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("% Crit Chance");
+        charData.critChance = EditorGUILayout.Slider(charData.critChance, 0,charData.power);
         EditorGUILayout.EndHorizontal();
 
     }
