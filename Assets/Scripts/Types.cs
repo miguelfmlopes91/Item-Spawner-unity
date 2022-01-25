@@ -13,6 +13,7 @@ namespace Types
     public enum MageWeaponType  
     {
         STAFF,
+        BOOK
     }
     
     public enum RogueClassType  

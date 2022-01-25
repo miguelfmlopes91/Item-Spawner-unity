@@ -9,5 +9,5 @@ public class CharacterData : ScriptableObject
     public float maxHealth;
     public float critChance;
     public float power;
-    public string name;
+    public string charName;
 }
