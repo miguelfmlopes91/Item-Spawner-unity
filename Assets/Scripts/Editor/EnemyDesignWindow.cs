@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Types;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 
 public class EnemyDesignWindow : EditorWindow
 {
@@ -236,6 +237,26 @@ public class GeneralSettings : EditorWindow
         EditorGUILayout.LabelField("Name");
         charData.name = EditorGUILayout.TextField(charData.name);
         EditorGUILayout.EndHorizontal();
+
+        if (charData.prefab == null)
+        {
+            EditorGUILayout.HelpBox("This enemy needs a [Prefab] before it can be created.", MessageType.Warning);
+        }
+        else if(string.IsNullOrEmpty(charData.name) )
+        {
+            EditorGUILayout.HelpBox("This enemy needs a [name] before it can be created.", MessageType.Warning);
+        }
+        else if (GUILayout.Button("Finish and Save", GUILayout.Height(30)))
+        {
+            SaveCharacterData();
+            _window.Close();
+        }
+        
+    }
+
+    private void SaveCharacterData()
+    {
+        
     }
 }
  
