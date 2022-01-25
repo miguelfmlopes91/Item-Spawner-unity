@@ -208,6 +208,11 @@ public class GeneralSettings : EditorWindow
     public void DrawSettings(CharacterData charData)
     {
         EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Prefab");
+        charData.prefab = (GameObject)EditorGUILayout.ObjectField(charData.prefab, typeof(GameObject), false);
+        EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Max health");
         charData.maxHealth = EditorGUILayout.FloatField(charData.maxHealth);
         EditorGUILayout.EndHorizontal();
@@ -227,6 +232,10 @@ public class GeneralSettings : EditorWindow
         charData.critChance = EditorGUILayout.Slider(charData.critChance, 0,charData.power);
         EditorGUILayout.EndHorizontal();
 
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Name");
+        charData.name = EditorGUILayout.TextField(charData.name);
+        EditorGUILayout.EndHorizontal();
     }
 }
  
