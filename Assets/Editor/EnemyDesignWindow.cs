@@ -13,16 +13,28 @@ public class EnemyDesignWindow : EditorWindow
     private Texture2D warriorSectionTexture;
     private Texture2D rogueSectionTexture;
 
+    private Texture2D _mageTexture;
+    private Texture2D _rogueTexture;
+    private Texture2D _warriorTexture;
+
     private Color headSectionColor = new Color(12f / 25f, 32f / 255f, 44f / 255f, 1f);
 
     private Rect headerSection;
     private Rect mageSection;
     private Rect warriorSection;
     private Rect rogueSection;
+    private Rect _mageIconSection;
+    private Rect _rogueIconSection;
+    private Rect _warriorIconSection;
 
+    private GUISkin _skin;
+    
     private static MageData _mageData;
     private static WarriorData _warriorData;
     private static RogueData _rogueData;
+
+    private float iconSize = 40;
+    private const float iconOffset = 8;
 
     public static MageData MageInfo => _mageData;
     public static WarriorData WarriorInfo => _warriorData;
@@ -41,6 +53,7 @@ public class EnemyDesignWindow : EditorWindow
     {
         InitTexture();
         InitData();
+        _skin = Resources.Load<GUISkin>("GUIStyles/EnemyDesignerSkin");
     }
 
     public static void InitData()
@@ -58,6 +71,10 @@ public class EnemyDesignWindow : EditorWindow
         mageSectionTexture = Resources.Load<Texture2D>("icons/editor_mage_gradient");
         warriorSectionTexture = Resources.Load<Texture2D>("icons/editor_warrior_gradient");
         rogueSectionTexture = Resources.Load<Texture2D>("icons/editor_rogue_gradient");
+        
+        _mageTexture = Resources.Load<Texture2D>("icons/editor_mageIcon");
+        _rogueTexture = Resources.Load<Texture2D>("icons/editor_rogueIcon");
+        _warriorTexture = Resources.Load<Texture2D>("icons/editor_warriorIcon");
     }
     
     private void OnGUI()
@@ -80,44 +97,64 @@ public class EnemyDesignWindow : EditorWindow
         mageSection.y = 50;
         mageSection.width = position.width / 3f;
         mageSection.height = position.width - 50f;
+
+        _mageIconSection.x = (mageSection.x + mageSection.width / 2f) - iconSize/ 2f;;
+        _mageIconSection.y = mageSection.y + iconOffset;
+        _mageIconSection.width = iconSize;
+        _mageIconSection.height = iconSize;
         
         warriorSection.x = position.width / 3f;
         warriorSection.y = 50;
         warriorSection.width = position.width / 3f;
         warriorSection.height = position.width - 50f;
+        
+        _warriorIconSection.x = (warriorSection.x + warriorSection.width / 2f) - iconSize/ 2f;
+        _warriorIconSection.y = warriorSection.y + iconOffset;
+        _warriorIconSection.width = iconSize;
+        _warriorIconSection.height = iconSize;
 
         rogueSection.x = 2 * position.width / 3f ;
         rogueSection.y = 50;
         rogueSection.width = position.width / 3f;
         rogueSection.height = position.width - 50f;
         
+        _rogueIconSection.x = (rogueSection.x + rogueSection.width / 2f) - iconSize/ 2f;;
+        _rogueIconSection.y = rogueSection.y + iconOffset;
+        _rogueIconSection.width = iconSize;
+        _rogueIconSection.height = iconSize;
+        
         GUI.DrawTexture(headerSection,headerSectionTexture);
         GUI.DrawTexture(mageSection, mageSectionTexture);
         GUI.DrawTexture(warriorSection, warriorSectionTexture);
         GUI.DrawTexture(rogueSection, rogueSectionTexture);
+        GUI.DrawTexture(_mageIconSection, _mageTexture);
+        GUI.DrawTexture(_warriorIconSection, _warriorTexture);
+        GUI.DrawTexture(_rogueIconSection, _rogueTexture);
     }
     
     private void DrawHeader()
     {
         GUILayout.BeginArea(headerSection);
-        
-        GUILayout.Label("Enemy Designer");
-        
+        GUILayout.Label("Enemy Designer", _skin.GetStyle("Header1"));
         GUILayout.EndArea();
     }
+    
     
     private void DrawMageSettings()
     {
         GUILayout.BeginArea(mageSection);
-        GUILayout.Label("Mage");
+        
+        GUILayout.Space(iconSize + iconOffset);
+        
+        GUILayout.Label("Mage", _skin.GetStyle("MageHeader"));
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Damage Type");
+        GUILayout.Label("Damage", _skin.GetStyle("MageField"));
         _mageData.dmgType = (MageDamageType)EditorGUILayout.EnumPopup(_mageData.dmgType);
         EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Weapon Type");
+        GUILayout.Label("Weapon", _skin.GetStyle("MageField"));
         _mageData.wpnType = (MageWeaponType)EditorGUILayout.EnumPopup(_mageData.wpnType);
         EditorGUILayout.EndHorizontal();
 
@@ -132,16 +169,16 @@ public class EnemyDesignWindow : EditorWindow
     private void DrawWarriorSettings()
     {
         GUILayout.BeginArea(warriorSection);
-        
-        GUILayout.Label("Warrior");
+        GUILayout.Space(iconSize + iconOffset);
+        GUILayout.Label("Warrior", _skin.GetStyle("MageHeader"));
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Strategy Type");
+        GUILayout.Label("Strategy", _skin.GetStyle("MageField"));
         _warriorData.StrategyType = (WarriorStrategyType)EditorGUILayout.EnumPopup(_warriorData.StrategyType);
         EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Weapon Type");
+        GUILayout.Label("Weapon", _skin.GetStyle("MageField"));
         _warriorData.WeaponType = (WarriorWeaponType)EditorGUILayout.EnumPopup(_warriorData.WeaponType);
         EditorGUILayout.EndHorizontal();
         
@@ -156,16 +193,16 @@ public class EnemyDesignWindow : EditorWindow
     private void DrawRogueSettings()
     {
         GUILayout.BeginArea(rogueSection);
-        
-        GUILayout.Label("Rogue");
+        GUILayout.Space(iconSize + iconOffset);
+        GUILayout.Label("Rogue", _skin.GetStyle("MageHeader"));
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Damage Type");
+        GUILayout.Label("Damage", _skin.GetStyle("MageField"));
         _rogueData.ClassType = (RogueClassType)EditorGUILayout.EnumPopup(_rogueData.ClassType);
         EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Weapon Type");
+        GUILayout.Label("Weapon", _skin.GetStyle("MageField"));
         _rogueData.WeaponType = (RogueWeaponType)EditorGUILayout.EnumPopup(_rogueData.WeaponType);
         EditorGUILayout.EndHorizontal();
         
