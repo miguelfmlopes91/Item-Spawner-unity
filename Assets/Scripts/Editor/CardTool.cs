@@ -26,6 +26,8 @@ namespace EditorProgramming
             StyleSheet sheet =
                 AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/Editor/CardToolStyles.uss");
             rootVisualElement.styleSheets.Add(sheet);
+            
+            CreateCardListView();
         }
 
         private void CreateCardListView()
@@ -34,7 +36,7 @@ namespace EditorProgramming
 
             ListView cardList = rootVisualElement.Query<ListView>("card-list").First();
             cardList.makeItem = () => new Label();
-            cardList.bindItem = (element, i) => (element as Label).text = cards[i].name;
+            cardList.bindItem = (element, i) => ((Label)element).text = cards[i].name;
 
             cardList.itemsSource = cards;
             cardList.itemHeight = 10;
@@ -91,7 +93,7 @@ namespace EditorProgramming
         private void LoadCardImage(Texture texture)
         {
             var cardPreviewImage = rootVisualElement.Query<Image>("preview").First();
-            cardPreviewImage.image = texture,
+            cardPreviewImage.image = texture;
         }
     }
 }

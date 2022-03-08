@@ -5,11 +5,11 @@
     xmlns:editor="UnityEditor.UIElements"
     xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
 >
-    <engine:ListView name="Card List"/>
-    <engine:Box name="Card">
-        <engine:Image name="Preview"/>
-        <engine:ScrollView name="Card-Info-Scroller">
-            <engine:Box name="Card-info"/>
+    <engine:ListView name="card-list"/>
+    <engine:Box name="card">
+        <engine:Image name="preview"/>
+        <engine:ScrollView name="card-info-scroll">
+            <engine:Box name="card-info"/>
         </engine:ScrollView>
     </engine:Box>
 </engine:UXML>
