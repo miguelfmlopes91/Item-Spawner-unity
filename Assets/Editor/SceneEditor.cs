@@ -4,14 +4,14 @@ using UnityEditor;
 namespace EditorProgramming
 {
     [CustomEditor(typeof(ShapeCreator))]
-    public class ShapeEditor : Editor
+    public class ShapeEditor : UnityEditor.Editor
     {
 
-        ShapeCreator shapeCreator;
-        bool needsRepaint;
+        private ShapeCreator shapeCreator;
+        private bool needsRepaint;
 
 
-        void OnSceneGUI()
+        private void OnSceneGUI()
         {
             Event guiEvent = Event.current;
 
@@ -33,7 +33,7 @@ namespace EditorProgramming
             }
         }
 
-        void HandleInput(Event guiEvent)
+        private void HandleInput(Event guiEvent)
         {
             Ray mouseRay = HandleUtility.GUIPointToWorldRay(guiEvent.mousePosition);
             float drawPlaneHeight = 0;
@@ -50,7 +50,7 @@ namespace EditorProgramming
 
         }
 
-        void Draw()
+        private void Draw()
         {
             for (int i = 0; i < shapeCreator.points.Count; i++)
             {
@@ -64,7 +64,7 @@ namespace EditorProgramming
             needsRepaint = false;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             shapeCreator = target as ShapeCreator;
         }

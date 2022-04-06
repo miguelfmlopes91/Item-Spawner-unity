@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 namespace EditorProgramming
 {
     [CustomEditor(typeof(ThinkingPlaceable))]
-    public class ThinkingPlaceableInspector : Editor
+    public class ThinkingPlaceableInspector : UnityEditor.Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
